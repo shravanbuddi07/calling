@@ -19,6 +19,32 @@ const rtcConfig = { iceServers: [
 ]};
 
 joinBtn.onclick = join;
+joinBtn.onclick = async () => {
+
+    try {
+
+        await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: false
+        });
+
+        alert("Mic Permission Granted");
+
+    } catch(e) {
+
+        alert(
+            e.name + "\n" +
+            e.message + "\n\n" +
+            "Secure : " + window.isSecureContext + "\n" +
+            "Protocol : " + location.protocol + "\n" +
+            "MediaDevices : " + !!navigator.mediaDevices
+        );
+
+    }
+
+    join();
+
+};
 refreshHistoryBtn.onclick = loadHistory;
 nameInput.addEventListener("keydown", e => { if (e.key === "Enter") join(); });
 document.addEventListener("click", unlockMedia);
