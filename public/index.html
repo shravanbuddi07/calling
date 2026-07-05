@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Video Call</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <h1>📞 Voice & Video Call</h1>
+
+  <div id="loginBox" class="card">
+    <input id="nameInput" placeholder="Enter your name">
+    <input id="photoInput" type="file" accept="image/*">
+    <button id="joinBtn">Join</button>
+    
+  </div>
+
+  <div id="mainBox" class="hidden">
+    <div class="card"><h2>Online Users</h2><div id="usersList"></div></div>
+    <div class="card"><div class="historyHeader"><h2>Call History</h2><button id="refreshHistoryBtn">Refresh</button></div><div id="historyList"></div></div>
+  </div>
+
+  <div id="callBox" class="callBox hidden">
+    <video id="remoteVideo" autoplay playsinline class="remoteVideo hidden"></video>
+    <video id="localVideo" autoplay muted playsinline class="localVideo hidden"></video>
+
+    <div id="voiceAvatar" class="avatar">
+      <img id="callPhoto" class="callPhoto hidden" alt="">
+      <div id="avatarIcon" class="avatarIcon">👤</div>
+    </div>
+
+    <h2 id="callTitle">Calling...</h2>
+    <p id="callStatus">Please wait</p>
+    <div id="callDuration" class="callDuration hidden">00:00</div>
+    <audio id="remoteAudio" autoplay playsinline style="display:none"></audio>
+
+    <div class="callActions">
+      <button id="acceptBtn" class="accept hidden">📞</button>
+      <button id="rejectBtn" class="reject hidden">☎</button>
+      <button id="muteBtn" class="mute hidden">🎤</button>
+      <button id="cameraBtn" class="camera hidden">📹</button>
+      <button id="flipBtn" class="flip hidden">🔄</button>
+      <button id="speakerBtn" class="speaker hidden">🔊</button>
+      <button id="endBtn" class="end hidden">☎</button>
+    </div>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
