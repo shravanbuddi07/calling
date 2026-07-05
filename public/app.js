@@ -19,32 +19,6 @@ const rtcConfig = { iceServers: [
 ]};
 
 joinBtn.onclick = join;
-joinBtn.onclick = async () => {
-
-    try {
-
-        await navigator.mediaDevices.getUserMedia({
-            audio: true,
-            video: false
-        });
-
-        alert("Mic Permission Granted");
-
-    } catch(e) {
-
-        alert(
-            e.name + "\n" +
-            e.message + "\n\n" +
-            "Secure : " + window.isSecureContext + "\n" +
-            "Protocol : " + location.protocol + "\n" +
-            "MediaDevices : " + !!navigator.mediaDevices
-        );
-
-    }
-
-    join();
-
-};
 refreshHistoryBtn.onclick = loadHistory;
 nameInput.addEventListener("keydown", e => { if (e.key === "Enter") join(); });
 document.addEventListener("click", unlockMedia);
@@ -76,29 +50,13 @@ socket.on("users:update", users => {
 });
 
 async function getMedia(mode){
-  try {
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      alert("Browser does not support microphone/camera.\nSecure: " + window.isSecureContext);
-      throw new Error("getUserMedia not supported");
-    }
-
-    return await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: mode === "video" ? { facingMode: usingFrontCamera ? "user" : "environment" } : false
-    });
-
-  } catch(err) {
-    alert(
-      (mode === "video" ? "CAMERA/MIC ERROR:\n" : "MIC ERROR:\n") +
-      err.name + "\n" +
-      err.message + "\n\n" +
-      "Secure: " + window.isSecureContext + "\n" +
-      "Protocol: " + location.protocol
-    );
+  try{
+    return await navigator.mediaDevices.getUserMedia({ audio:true, video: mode==="video" ? { facingMode: usingFrontCamera ? "user" : "environment" } : false });
+  }catch(err){
+    alert((mode==="video" ? "CAMERA/MIC ERROR:\n" : "MIC ERROR:\n") + err.name + "\n" + err.message);
     throw err;
   }
 }
-
 
 async function createPeer(to, mode){
   cleanupPeerOnly();
