@@ -73,6 +73,7 @@ async function getMedia(mode){
   }
 }
 
+
 async function createPeer(to, mode){
   cleanupPeerOnly();
   currentMode = mode;
